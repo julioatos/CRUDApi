@@ -1,4 +1,6 @@
-﻿namespace CRUDApi.Models
+﻿using System.Collections.Generic;
+
+namespace CRUDApi.Models
 {
     public class Employee
     {
@@ -9,5 +11,7 @@
 
         //public string WorkingOn { get; set; }
         public Profile Profile { get; set; }
+
+        public ICollection<DevelopmentTeam> DevelopmentTeams { get; set; }
     }
 }
