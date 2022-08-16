@@ -19,7 +19,6 @@ namespace CRUDApi.Data.Repository.Implementations
         public void Delete(TEntity entity)
         {
             _ScrumTeamContext.Set<TEntity>().Remove(entity);
-            //var entity = _ScrumTeamContext.Set<TEntity>().f
         }
 
         public async void Delete(Expression<Func<TEntity, bool>> expression)

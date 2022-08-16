@@ -39,7 +39,7 @@ namespace CRUDApi.Migrations
 
             modelBuilder.Entity("CRUDApi.Models.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -47,7 +47,7 @@ namespace CRUDApi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Employees");
                 });
@@ -78,12 +78,12 @@ namespace CRUDApi.Migrations
                     b.Property<int>("DevelopmentTeamsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeesEmployeeId")
+                    b.Property<int>("EmployeesId")
                         .HasColumnType("int");
 
-                    b.HasKey("DevelopmentTeamsId", "EmployeesEmployeeId");
+                    b.HasKey("DevelopmentTeamsId", "EmployeesId");
 
-                    b.HasIndex("EmployeesEmployeeId");
+                    b.HasIndex("EmployeesId");
 
                     b.ToTable("DevelopmentTeamEmployee");
                 });
@@ -109,7 +109,7 @@ namespace CRUDApi.Migrations
 
                     b.HasOne("CRUDApi.Models.Employee", null)
                         .WithMany()
-                        .HasForeignKey("EmployeesEmployeeId")
+                        .HasForeignKey("EmployeesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

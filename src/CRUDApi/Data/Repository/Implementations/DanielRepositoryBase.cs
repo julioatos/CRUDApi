@@ -14,7 +14,7 @@ namespace CRUDApi.Data.Repository.Implementations
     /// <summary>
     /// This interface implement the most concurrent methods with the database
     /// </summary>
-    public abstract class DanielRepositoryBase<TKey> : IRepositoryBase<TKey>
+    public abstract class DanielRepositoryBase<TKey> : IDanyRepositoryBase<TKey>
     {
         /// <summary>
         /// Represents a session with the database and can be used to query and save instances of your entities

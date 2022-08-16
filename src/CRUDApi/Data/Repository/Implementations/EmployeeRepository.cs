@@ -1,8 +1,9 @@
-﻿using CRUDApi.Models;
+﻿using CRUDApi.Data.Repository.Abstractions;
+using CRUDApi.Models;
 
 namespace CRUDApi.Data.Repository.Implementations
 {
-    public class EmployeeRepository<TEntity, TKey> : RepositoryBase<TEntity, TKey> where TEntity : Employee, IEntityBase<TKey>
+    public class EmployeeRepository: RepositoryBase<Employee, int>, IEmployeeRepository
     {
         public EmployeeRepository(ScrumTeamContext scrumTeamContext) : base(scrumTeamContext)
         {

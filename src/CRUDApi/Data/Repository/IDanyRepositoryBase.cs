@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CRUDApi.Data.Repository.Abstractions
 {
-    public interface IRepositoryBase<TKey>
+    public interface IDanyRepositoryBase<TKey>
     {
         /// <summary>
         /// Convert the DbContext to the assigned generic type
