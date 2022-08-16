@@ -2,7 +2,7 @@
 
 namespace CRUDApi.Models
 {
-    public class Profile
+    public class Profile : IEntityBase<int>
     {
         //[ForeignKey("Employee")]
         public int Id { get; set; }

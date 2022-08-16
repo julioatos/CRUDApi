@@ -86,7 +86,7 @@ namespace CRUDApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEmplooye(int id, string name)
+        public async Task<IActionResult> UpdateEmplooye(int id)
         {
             //DevelopmentTeam DevTeam = new() { Active = true, Id = 1, CreationDate = System.DateTime.Now };
             //DevelopmentTeam DevTeam2 = new() { Active= false, Id = 2, CreationDate = System.DateTime.Today };
