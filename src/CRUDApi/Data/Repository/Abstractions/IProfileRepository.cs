@@ -2,7 +2,7 @@
 
 namespace CRUDApi.Data.Repository.Abstractions
 {
-    public interface IEmployeeRepository : IRepositoryBase<Employee, int>
+    public interface IProfileRepository : IRepositoryBase<Profile, int>
     {
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CRUDApi.Data;
+using CRUDApi.Data.Repository;
+using CRUDApi.Data.Repository.Abstractions;
+using CRUDApi.Data.Repository.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +38,7 @@ namespace CRUDApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRUDApi", Version = "v1" });
             });
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
