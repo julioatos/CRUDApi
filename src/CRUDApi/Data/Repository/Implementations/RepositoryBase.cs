@@ -15,17 +15,17 @@ namespace CRUDApi.Data.Repository.Implementations
             _ScrumTeamContext=scrumTeamContext;
         }
 
-        public void Create(TEntity entity)
+        public virtual void Create(TEntity entity)
         {
             _ScrumTeamContext.Set<TEntity>().Add(entity);
         }
 
-        public async Task<ICollection<TEntity>> GetAll()
+        public virtual async Task<ICollection<TEntity>> GetAll()
         {
             return await _ScrumTeamContext.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(TKey id)
+        public virtual async Task<TEntity> GetById(TKey id)
         {
             return await _ScrumTeamContext.Set<TEntity>().SingleAsync(e => e.Id.Equals(id));
         }
