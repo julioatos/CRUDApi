@@ -1,5 +1,8 @@
 ﻿using CRUDApi.Data.Repository.Abstractions;
 using CRUDApi.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CRUDApi.Data.Repository.Implementations
 {
@@ -7,7 +10,22 @@ namespace CRUDApi.Data.Repository.Implementations
     {
         public EmployeeRepository(ScrumTeamContext scrumTeamContext) : base(scrumTeamContext)
         {
+            
+        }
 
+        public override void Create(Employee entity)
+        {
+            _ScrumTeamContext.Set<Employee>().Attach(entity);
+        }
+
+        public override async Task<ICollection<Employee>> GetAll()
+        {
+            return await _ScrumTeamContext.Set<Employee>().Include(employee => employee.Profile).ToListAsync();
+        }
+
+        public override async Task<Employee> GetById(int id)
+        {
+            return await _ScrumTeamContext.Set<Employee>().Include(employee => employee.Profile).SingleAsync(employee => employee.Id.Equals(id));
         }
     }
 }

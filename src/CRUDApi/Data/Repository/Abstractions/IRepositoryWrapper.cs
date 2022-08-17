@@ -1,4 +1,6 @@
-﻿namespace CRUDApi.Data.Repository.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace CRUDApi.Data.Repository.Abstractions
 {
     public interface IRepositoryWrapper 
     {
@@ -6,6 +8,6 @@
         IEmployeeRepository Employee { get; }
         IDevelopmentTeamRepository DevelopmentTeam { get; }
 
-        void Save();
+        Task Save();
     }
 }

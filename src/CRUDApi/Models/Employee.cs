@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CRUDApi.Models
 {
@@ -6,7 +7,8 @@ namespace CRUDApi.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Profile Profile { get; set; }
+        public int? ProfileId { get; set; }
+        public Profile? Profile { get; set; }
         public ICollection<DevelopmentTeam> DevelopmentTeams { get; set; }
     }
 }

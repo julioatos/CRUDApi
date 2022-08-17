@@ -16,9 +16,12 @@ namespace CRUDApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
-            .HasOne(e => e.Profile)
-            .WithOne(p => p.Employee)
-            .HasForeignKey<Profile>(p => p.EmployeeId);
+                .HasIndex(employee => employee.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Employee>()
+                .Property(employee => employee.Name)
+                .HasMaxLength(60);
         }
     }
 }

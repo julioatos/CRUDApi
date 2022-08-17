@@ -1,4 +1,5 @@
 ﻿using CRUDApi.Data.Repository.Abstractions;
+using System.Threading.Tasks;
 
 namespace CRUDApi.Data.Repository.Implementations
 {
@@ -39,9 +40,9 @@ namespace CRUDApi.Data.Repository.Implementations
             }
         }
 
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public RepositoryWrapper(ScrumTeamContext context)

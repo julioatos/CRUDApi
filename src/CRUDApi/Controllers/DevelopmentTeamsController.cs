@@ -27,10 +27,11 @@ namespace CRUDApi.Controllers
             var team = await _developmentTeamService.GetDevelopmentTeamById(id);
             return Ok(team);
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDevelopmentTeam(int id)
         {
-            var team = await _repository.DevelopmentTeam.GetById(id);
+            var team = await _developmentTeamService.GetDevelopmentTeamById(id);
 
             if(team is null)
             {
@@ -38,15 +39,17 @@ namespace CRUDApi.Controllers
             }
             else
             {
-                await _repository.DevelopmentTeam.Update(team);
-                _repository.Save();
+                await _developmentTeamService.UpdateDevelopmentTeam(id);
                 return Ok(team);
             }
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDevelopmentTeam(int id)
         {
-            var team = await _rep
+            var team = await _developmentTeamService.GetDevelopmentTeamById(id);
+            await _developmentTeamService.DeleteDevelopmentTeam(id);
+            return Ok();
         }
     }
 }

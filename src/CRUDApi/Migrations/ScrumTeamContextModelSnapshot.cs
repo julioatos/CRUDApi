@@ -45,9 +45,19 @@ namespace CRUDApi.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.HasIndex("ProfileId");
 
                     b.ToTable("Employees");
                 });
@@ -59,16 +69,10 @@ namespace CRUDApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProfileName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -88,15 +92,13 @@ namespace CRUDApi.Migrations
                     b.ToTable("DevelopmentTeamEmployee");
                 });
 
-            modelBuilder.Entity("CRUDApi.Models.Profile", b =>
+            modelBuilder.Entity("CRUDApi.Models.Employee", b =>
                 {
-                    b.HasOne("CRUDApi.Models.Employee", "Employee")
-                        .WithOne("Profile")
-                        .HasForeignKey("CRUDApi.Models.Profile", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("CRUDApi.Models.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
 
-                    b.Navigation("Employee");
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("DevelopmentTeamEmployee", b =>
@@ -112,11 +114,6 @@ namespace CRUDApi.Migrations
                         .HasForeignKey("EmployeesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CRUDApi.Models.Employee", b =>
-                {
-                    b.Navigation("Profile");
                 });
 #pragma warning restore 612, 618
         }

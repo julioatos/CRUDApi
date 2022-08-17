@@ -8,6 +8,8 @@ using CRUDApi.Data;
 using CRUDApi.Data.Repository.Implementations;
 using CRUDApi.Data.Repository.Abstractions;
 using CRUDApi.Services.Abstractions;
+using CRUDApi.DTOs;
+using CRUDApi.Exceptions;
 
 namespace CRUDApi.Controllers
 {
@@ -24,13 +26,18 @@ namespace CRUDApi.Controllers
         List<Employee> NewEmployees = new();
 
         [HttpPost]
-        public ActionResult CreatesEmployes(Employee newPersona)
+        public async Task<IActionResult> CreatesEmployes(EmployeeCreateDTO newPersona)
         {
             if (newPersona is null)
                 return BadRequest("The object created mustn't be empty");
-            //_repository.Employee.Create(newPersona);
-            //_repository.Save();
-            _employeeService.CreateEmployee(newPersona);
+            try
+            {
+                await _employeeService.CreateEmployeeAsync(newPersona);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound("Profile doesn't exists");
+            }
             return Ok(newPersona);
         }
 

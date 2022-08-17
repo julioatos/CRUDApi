@@ -27,7 +27,7 @@ namespace CRUDApi.Data.Repository.Implementations
 
         public virtual async Task<TEntity> GetById(TKey id)
         {
-            return await _ScrumTeamContext.Set<TEntity>().SingleAsync(e => e.Id.Equals(id));
+            return await _ScrumTeamContext.Set<TEntity>().FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
     }

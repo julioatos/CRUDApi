@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 namespace CRUDApi
 {
@@ -44,6 +45,7 @@ namespace CRUDApi
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IDevelopmentTeamService, DevelopmentTeamService>();
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
