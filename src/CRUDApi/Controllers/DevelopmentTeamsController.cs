@@ -1,4 +1,5 @@
 ﻿using CRUDApi.Data.Repository.Abstractions;
+using CRUDApi.DTOs;
 using CRUDApi.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -13,6 +14,13 @@ namespace CRUDApi.Controllers
         public DevelopmentTeamsController(IDevelopmentTeamService developmentTeamService)
         {
             _developmentTeamService = developmentTeamService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateDevelopmentTeam(DevelopmentTeamCreateDTO developmentTeam)
+        {
+            await _developmentTeamService.CreateDevelopmentTeam(developmentTeam);
+            return Ok();
         }
 
         [HttpGet]

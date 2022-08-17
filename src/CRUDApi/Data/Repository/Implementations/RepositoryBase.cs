@@ -22,7 +22,7 @@ namespace CRUDApi.Data.Repository.Implementations
 
         public virtual async Task<ICollection<TEntity>> GetAll()
         {
-            return await _ScrumTeamContext.Set<TEntity>().ToListAsync();
+            return await _ScrumTeamContext.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<TEntity> GetById(TKey id)

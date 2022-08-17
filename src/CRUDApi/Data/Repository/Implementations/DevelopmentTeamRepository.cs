@@ -17,5 +17,15 @@ namespace CRUDApi.Data.Repository.Implementations
             return await _ScrumTeamContext.Set<DevelopmentTeam>().Include(team => team.Employees).ToListAsync();
     
         }
+
+        public override Task<DevelopmentTeam> Update(DevelopmentTeam entity)
+        {
+            _ScrumTeamContext.Entry(entity).State=EntityState.Modified;
+            foreach (Employee item in entity.Employees)
+            {
+                _ScrumTeamContext.Entry(item).State=EntityState.Unchanged;
+            }
+            return Task.FromResult(entity);
+        }
     }
 }

@@ -28,10 +28,12 @@ namespace CRUDApi.Data.Repository.Implementations
             _ScrumTeamContext.Set<TEntity>().RemoveRange(entities);
         }
 
-        public Task<TEntity> Update(TEntity entity)
+        public virtual Task<TEntity> Update(TEntity entity)
         {
+            _ScrumTeamContext.Entry(entity).State= EntityState.Modified;
             var helper = _ScrumTeamContext.Set<TEntity>().Update(entity);
             return Task.FromResult(helper.Entity);
         }
+
     }
 }
