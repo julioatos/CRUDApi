@@ -27,5 +27,15 @@ namespace CRUDApi.Data.Repository.Implementations
         {
             return await _ScrumTeamContext.Set<Employee>().Include(employee => employee.Profile).SingleAsync(employee => employee.Id.Equals(id));
         }
+
+        public async Task<ICollection<Employee>> GetEmployeesById(int[] ids)
+        {
+            List<Employee> employees = new();
+            foreach (var employeesId in ids)
+            {
+                employees.Add(await GetById(employeesId));
+            }
+            return employees;
+        }
     }
 }

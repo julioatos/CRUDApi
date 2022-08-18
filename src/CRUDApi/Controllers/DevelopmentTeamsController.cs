@@ -36,26 +36,17 @@ namespace CRUDApi.Controllers
             return Ok(team);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDevelopmentTeam(int id)
+        [HttpPut]
+        ///Akk julian si necesitamos id
+        public async Task<IActionResult> UpdateDevelopmentTeam(DevelopmentTeamUpdateDTO developmentTeam)
         {
-            var team = await _developmentTeamService.GetDevelopmentTeamById(id);
-
-            if(team is null)
-            {
-                return NotFound("Team not found!");
-            }
-            else
-            {
-                await _developmentTeamService.UpdateDevelopmentTeam(id);
-                return Ok(team);
-            }
+            await _developmentTeamService.UpdateDevelopmentTeam(developmentTeam);
+            return Ok(developmentTeam);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteDevelopmentTeam(int id)
         {
-            var team = await _developmentTeamService.GetDevelopmentTeamById(id);
             await _developmentTeamService.DeleteDevelopmentTeam(id);
             return Ok();
         }

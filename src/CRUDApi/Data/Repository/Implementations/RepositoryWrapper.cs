@@ -5,7 +5,7 @@ namespace CRUDApi.Data.Repository.Implementations
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private ScrumTeamContext _context;
+        private readonly ScrumTeamContext _context;
         private IProfileRepository _profile;
         private IDevelopmentTeamRepository _developmentTeam;
         private IEmployeeRepository _employee;

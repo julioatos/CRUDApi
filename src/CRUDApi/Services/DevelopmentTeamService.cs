@@ -18,17 +18,22 @@ namespace CRUDApi.Services
             _repository = repository;
             _mapper = mapper;
         }
+
         public async Task CreateDevelopmentTeam(DevelopmentTeamCreateDTO developmentTeam)
         {
-            _repository.DevelopmentTeam.Create(_mapper.Map<DevelopmentTeam>(developmentTeam));
+            //var employees = await _repository.Employee.GetEmployeesById(developmentTeam.EmployesId.ToArray());
+            var devTeam = _mapper.Map<DevelopmentTeam>(developmentTeam);
+            devTeam.Employees= new List<Employee>();
+            foreach (var id in developmentTeam.EmployesId)
+            {
+                devTeam.Employees.Add(new Employee()
+                {
+                    Id = id
+                });
+            }
+            //devTeam.Employees = (ICollection<Employee>)employees;
+            _repository.DevelopmentTeam.Create(devTeam);
             await _repository.Save();
-        }
-
-        public async Task DeleteDevelopmentTeam(int id)
-        {
-            var team = await GetDevelopmentTeamById(id);
-            _repository.DevelopmentTeam.Delete(_mapper.Map<DevelopmentTeam>(team));
-            return;
         }
 
         public async Task<DevelopmentTeamReadDTO> GetDevelopmentTeamById(int id)
@@ -43,11 +48,23 @@ namespace CRUDApi.Services
             return _mapper.Map<ICollection<DevelopmentTeamReadDTO>>(developmentTeams);
         }
 
-        public async Task UpdateDevelopmentTeam(int id)
+        public async Task UpdateDevelopmentTeam(DevelopmentTeamUpdateDTO developmentTeam)
         {
-            var team = await GetDevelopmentTeamById(id);
-            await _repository.DevelopmentTeam.Update(_mapper.Map<DevelopmentTeam>(team));
+            var id = await _repository.DevelopmentTeam.GetById(developmentTeam.Id);
+            if (id is null)
+                throw new System.Exception();
+            await _repository.DevelopmentTeam.Update(_mapper.Map<DevelopmentTeam>(developmentTeam));
+            //await _repository.DevelopmentTeam.Update(_mapper.Map<DevelopmentTeam>(developmentTeam));
+            await _repository.Save();
             return;
         }
+        public async Task DeleteDevelopmentTeam(int id)
+        {
+            var team = await GetDevelopmentTeamById(id);
+            _repository.DevelopmentTeam.Delete(_mapper.Map<DevelopmentTeam>(team));
+            await _repository.Save();
+            return;
+        }
+
     }
 }

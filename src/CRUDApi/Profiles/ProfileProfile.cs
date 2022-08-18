@@ -8,6 +8,7 @@ namespace CRUDApi.Profiles
         public ProfileProfile()
         {
             CreateMap<Models.Profile, ProfileReadDTO>();
+            CreateMap<Models.Profile, ProfileCreateDTO>().ReverseMap();
         }
     }
 }

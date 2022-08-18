@@ -9,6 +9,8 @@ namespace CRUDApi.Profiles
         {
             CreateMap<Models.DevelopmentTeam, DevelopmentTeamCreateDTO>().ReverseMap();
             CreateMap<Models.DevelopmentTeam, DevelopmentTeamReadDTO>().ReverseMap();
+            CreateMap<Models.DevelopmentTeam, DevelopmentTeamUpdateDTO>().ReverseMap();
+            CreateMap<Models.DevelopmentTeam, DevelopmentTeamUpdateDTO>().ReverseMap();
         }
     }
 }

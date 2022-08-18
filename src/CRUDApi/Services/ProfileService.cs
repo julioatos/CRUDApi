@@ -1,4 +1,6 @@
-﻿using CRUDApi.Data.Repository.Abstractions;
+﻿using AutoMapper;
+using CRUDApi.Data.Repository.Abstractions;
+using CRUDApi.DTOs;
 using CRUDApi.Models;
 using CRUDApi.Services.Abstractions;
 using System.Collections.Generic;
@@ -9,28 +11,30 @@ namespace CRUDApi.Services
     public class ProfileService : IProfileService
     {
         private readonly IRepositoryWrapper _repository;
+        private readonly IMapper _mapper;
 
-        public ProfileService(IRepositoryWrapper repository)
+        public ProfileService(IRepositoryWrapper repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
     
-        public void CreateProfile(Profile profile)
+        public async Task CreateProfile(ProfileCreateDTO profile)
         {
-            _repository.Profile.Create(profile);
-            _repository.Save();
+            _repository.Profile.Create(_mapper.Map<Models.Profile>(profile));
+            await _repository.Save();
         }
 
-        public async Task<Profile> GetProfileById(int id)
+        public async Task<ProfileReadDTO> GetProfileById(int id)
         {
             var profile = await _repository.Profile.GetById(id);
-            return profile;
+            return _mapper.Map<ProfileReadDTO>(profile);
         }
 
-        public async Task<ICollection<Profile>> GetProfiles()
+        public async Task<ICollection<ProfileReadDTO>> GetProfiles()
         {
-            var profiles = await _repository.Profile.GetAll();
-            return profiles;
+            var profile = await _repository.Profile.GetAll();
+            return _mapper.Map<ICollection<ProfileReadDTO>>(profile);
         }
     }
 }

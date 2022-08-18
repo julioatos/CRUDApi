@@ -17,7 +17,7 @@ namespace CRUDApi.Data.Repository.Implementations
 
         public virtual void Create(TEntity entity)
         {
-            _ScrumTeamContext.Set<TEntity>().Add(entity);
+            _ScrumTeamContext.Set<TEntity>().Attach(entity);
         }
 
         public virtual async Task<ICollection<TEntity>> GetAll()
@@ -27,7 +27,7 @@ namespace CRUDApi.Data.Repository.Implementations
 
         public virtual async Task<TEntity> GetById(TKey id)
         {
-            return await _ScrumTeamContext.Set<TEntity>().FirstOrDefaultAsync(e => e.Id.Equals(id));
+            return await _ScrumTeamContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
     }

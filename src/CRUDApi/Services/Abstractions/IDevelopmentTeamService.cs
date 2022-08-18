@@ -10,7 +10,7 @@ namespace CRUDApi.Services.Abstractions
         public Task CreateDevelopmentTeam(DevelopmentTeamCreateDTO developmentTeam);
         public Task<ICollection<DevelopmentTeamReadDTO>> GetDevelopmentTeams();
         public Task<DevelopmentTeamReadDTO> GetDevelopmentTeamById(int id);
-        public Task UpdateDevelopmentTeam(int id);
+        public Task UpdateDevelopmentTeam(DevelopmentTeamUpdateDTO developmentTeam);
         public Task DeleteDevelopmentTeam(int id);
     }
 }

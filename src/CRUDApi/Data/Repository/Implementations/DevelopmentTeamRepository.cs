@@ -21,10 +21,10 @@ namespace CRUDApi.Data.Repository.Implementations
         public override Task<DevelopmentTeam> Update(DevelopmentTeam entity)
         {
             _ScrumTeamContext.Entry(entity).State=EntityState.Modified;
-            foreach (Employee item in entity.Employees)
-            {
-                _ScrumTeamContext.Entry(item).State=EntityState.Unchanged;
-            }
+            //foreach (Employee item in entity.Employees)
+            //{
+            //    _ScrumTeamContext.Entry(item).State=EntityState.Unchanged;
+            //}
             return Task.FromResult(entity);
         }
     }

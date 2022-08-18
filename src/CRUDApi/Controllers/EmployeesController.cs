@@ -23,8 +23,6 @@ namespace CRUDApi.Controllers
             _employeeService = employeeService;
         }
 
-        List<Employee> NewEmployees = new();
-
         [HttpPost]
         public async Task<IActionResult> CreatesEmployes(EmployeeCreateDTO newPersona)
         {
