@@ -57,7 +57,7 @@ namespace CRUDApi.Controllers
         public async Task<IActionResult> DeleteDevelopmentTeam(int id)
         {
             await _developmentTeamService.DeleteDevelopmentTeam(id);
-            return Ok();
+            return Ok("");
         }
     }
 }

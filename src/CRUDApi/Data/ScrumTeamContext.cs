@@ -28,5 +28,11 @@ namespace CRUDApi.Data
                 .HasData(new { Id = 1, ProfileName = "Scrum Master", Key = ProfileKeys.SCRUM_MASTER },
                          new { Id = 2, ProfileName = "Backend Developer", Key = ProfileKeys.BACKEND_DEVELOPER });
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder.LogTo(System.Console.WriteLine);
+        }
     }
 }

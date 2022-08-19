@@ -36,8 +36,6 @@ namespace CRUDApi.Services
                     Id = id
                 });
             }
-            //var query = Employees.Where(l1 => list2.Any(l2 => l2.g4 == l1.g2));
-            //devTeam.Employees = (ICollection<Employee>)employees;
             _repository.DevelopmentTeam.Create(devTeam);
             await _repository.Save();
         }
@@ -56,20 +54,21 @@ namespace CRUDApi.Services
 
         public async Task UpdateDevelopmentTeam(DevelopmentTeamUpdateDTO developmentTeam)
         {
-            var id = await _repository.DevelopmentTeam.GetById(developmentTeam.Id);
-            if (id is null)
+            var team = await _repository.DevelopmentTeam.GetById(developmentTeam.Id);
+            if (team is null)
                 throw new System.Exception();
-            await _repository.DevelopmentTeam.Update(_mapper.Map<DevelopmentTeam>(developmentTeam));
-            //await _repository.DevelopmentTeam.Update(_mapper.Map<DevelopmentTeam>(developmentTeam));
+            team.CreationDate = developmentTeam.CreationDate;
+            team.Active = developmentTeam.Active;
+            var employee = await _repository.Employee.GetEmployeesById(developmentTeam.EmployeesIds.ToArray());
+            team.Employees = employee;
+            await _repository.DevelopmentTeam.Update(team);
             await _repository.Save();
-            return;
         }
         public async Task DeleteDevelopmentTeam(int id)
         {
-            var team = await GetDevelopmentTeamById(id);
-            _repository.DevelopmentTeam.Delete(_mapper.Map<DevelopmentTeam>(team));
+            var team = await _repository.DevelopmentTeam.GetById(id);
+            _repository.DevelopmentTeam.Delete(team);
             await _repository.Save();
-            return;
         }
 
     }

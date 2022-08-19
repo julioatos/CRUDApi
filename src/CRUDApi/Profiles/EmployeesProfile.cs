@@ -7,7 +7,7 @@ namespace CRUDApi.Profiles
     {
         public EmployeesProfile()
         {
-            CreateMap<Models.Employee, EmployeeReadDTO>();
+            CreateMap<Models.Employee, EmployeeReadDTO>().ReverseMap();
             CreateMap<Models.Employee, EmployeeCreateDTO>().ReverseMap();
         }
     }

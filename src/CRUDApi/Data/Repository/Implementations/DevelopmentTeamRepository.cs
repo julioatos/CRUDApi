@@ -16,17 +16,17 @@ namespace CRUDApi.Data.Repository.Implementations
 
         public override async Task<ICollection<DevelopmentTeam>> GetAll()
         {
-            return await _ScrumTeamContext.Set<DevelopmentTeam>().Include(team => team.Employees).ToListAsync();
-    
+            return await _ScrumTeamContext.Set<DevelopmentTeam>().Include(team => team.Employees).ThenInclude(employee => employee.Profile).ToListAsync();
+        }
+
+        public override async Task<DevelopmentTeam> GetById(int id)
+        {
+            return await _ScrumTeamContext.Set<DevelopmentTeam>().Include(team => team.Employees).ThenInclude(employee => employee.Profile).FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
         public override Task<DevelopmentTeam> Update(DevelopmentTeam entity)
         {
-            _ScrumTeamContext.Entry(entity).State=EntityState.Modified;
-            //foreach (Employee item in entity.Employees)
-            //{
-            //    _ScrumTeamContext.Entry(item).State=EntityState.Unchanged;
-            //}
+            _ScrumTeamContext.DevelopmentTeams.Update(entity);
             return Task.FromResult(entity);
         }
 

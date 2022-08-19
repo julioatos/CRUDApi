@@ -8,7 +8,5 @@ namespace CRUDApi.DTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public ProfileReadDTO Profile { get; set; }
-        public ICollection<DevelopmentTeam> DevelopmentTeams { get; set; }
-
     }
 }
