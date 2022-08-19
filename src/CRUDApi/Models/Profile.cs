@@ -7,5 +7,6 @@ namespace CRUDApi.Models
         //[ForeignKey("Employee")]
         public int Id { get; set; }
         public string ProfileName { get; set; }
+        public string Key { get; set; }
     }
 }

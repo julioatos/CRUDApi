@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUDApi.Migrations
 {
     [DbContext(typeof(ScrumTeamContext))]
-    [Migration("20220817195630_InitialMigration")]
+    [Migration("20220819172206_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,12 +71,27 @@ namespace CRUDApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProfileName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Profiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Key = "SM"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Key = "BED"
+                        });
                 });
 
             modelBuilder.Entity("DevelopmentTeamEmployee", b =>

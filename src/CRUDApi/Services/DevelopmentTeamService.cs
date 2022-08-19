@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CRUDApi.Data.Repository.Abstractions;
 using CRUDApi.DTOs;
+using CRUDApi.Enums;
 using CRUDApi.Exceptions;
 using CRUDApi.Models;
 using CRUDApi.Services.Abstractions;
@@ -23,7 +24,9 @@ namespace CRUDApi.Services
 
         public async Task CreateDevelopmentTeam(DevelopmentTeamCreateDTO developmentTeam)
         {
-
+            var scrumProfile = await _repository.Profile.GetByKeyAsync(ProfileKeys.SCRUM_MASTER);
+            if (!(await _repository.DevelopmentTeam.HaveAnyProfile(developmentTeam.EmployesId, scrumProfile)))
+                throw new MissingScrumMasterException();
             var devTeam = _mapper.Map<DevelopmentTeam>(developmentTeam);
             devTeam.Employees = new List<Employee>();
             foreach (var id in developmentTeam.EmployesId)
@@ -33,7 +36,7 @@ namespace CRUDApi.Services
                     Id = id
                 });
             }
-
+            //var query = Employees.Where(l1 => list2.Any(l2 => l2.g4 == l1.g2));
             //devTeam.Employees = (ICollection<Employee>)employees;
             _repository.DevelopmentTeam.Create(devTeam);
             await _repository.Save();

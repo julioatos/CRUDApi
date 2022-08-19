@@ -27,7 +27,8 @@ namespace CRUDApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,6 +78,16 @@ namespace CRUDApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Profiles",
+                columns: new[] { "Id", "Key", "ProfileName" },
+                values: new object[] { 1, "SM", null });
+
+            migrationBuilder.InsertData(
+                table: "Profiles",
+                columns: new[] { "Id", "Key", "ProfileName" },
+                values: new object[] { 2, "BED", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DevelopmentTeamEmployee_EmployeesId",

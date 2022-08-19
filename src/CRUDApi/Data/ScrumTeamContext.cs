@@ -1,4 +1,5 @@
-﻿using CRUDApi.Models;
+﻿using CRUDApi.Enums;
+using CRUDApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRUDApi.Data
@@ -22,6 +23,10 @@ namespace CRUDApi.Data
             modelBuilder.Entity<Employee>()
                 .Property(employee => employee.Name)
                 .HasMaxLength(60);
+
+            modelBuilder.Entity<Profile>()
+                .HasData(new { Id = 1, ProfileName = "Scrum Master", Key = ProfileKeys.SCRUM_MASTER },
+                         new { Id = 2, ProfileName = "Backend Developer", Key = ProfileKeys.BACKEND_DEVELOPER });
         }
     }
 }
