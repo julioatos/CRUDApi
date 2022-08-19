@@ -3,6 +3,8 @@ using CRUDApi.DTOs;
 using CRUDApi.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Linq;
+using CRUDApi.Exceptions;
 
 namespace CRUDApi.Controllers
 {
@@ -19,7 +21,14 @@ namespace CRUDApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDevelopmentTeam(DevelopmentTeamCreateDTO developmentTeam)
         {
-            await _developmentTeamService.CreateDevelopmentTeam(developmentTeam);
+            try
+            {
+                await _developmentTeamService.CreateDevelopmentTeam(developmentTeam);
+            }
+            catch (MissingScrumMasterException)
+            {
+                return BadRequest("The team must have 1 employee with Scrum Master profile");
+            }
             return Ok();
         }
 

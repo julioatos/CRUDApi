@@ -36,6 +36,10 @@ namespace CRUDApi.Controllers
             {
                 return NotFound("Profile doesn't exists");
             }
+            catch (NameAlreadyExistException)
+            {
+                return BadRequest("The name already exists in the database");
+            }
             return Ok(newPersona);
         }
 
@@ -43,7 +47,8 @@ namespace CRUDApi.Controllers
         public async Task<IActionResult> ReturnAllEmployees()
         {
             var employees = await _employeeService.GetEmployees();
-
+            if (employees.Count < 1)
+                return NotFound("There isn't employees reistered");
             return Ok(employees);
 
         }
@@ -51,7 +56,8 @@ namespace CRUDApi.Controllers
         public async Task<IActionResult> GetEmployeeById(int id)
         {
             var employee = await _employeeService.GetEmployeeById(id);
-
+            if (employee is null)
+                return NotFound("The employee doesn't exists");
             return Ok(employee);
         }
     

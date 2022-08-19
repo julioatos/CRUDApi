@@ -36,7 +36,8 @@ namespace CRUDApi.Controllers
         public async Task<IActionResult> ReturnAllProfiles()
         {
             var profiles = await _profileService.GetProfiles();
-
+            if (profiles.Count < 1)
+                return NotFound("No one profile is created");
             return Ok(profiles);
 
         }
@@ -44,8 +45,10 @@ namespace CRUDApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProfileById(int id)
         {
-            var employee = await _profileService.GetProfileById(id);
-            return Ok(employee);
+            var Profile = await _profileService.GetProfileById(id);
+            if (Profile is null)
+                return NotFound("The requested profile not exists");
+            return Ok(Profile);
         }
     }
 }

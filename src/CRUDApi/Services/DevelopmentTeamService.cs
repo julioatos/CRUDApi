@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using CRUDApi.Data.Repository.Abstractions;
 using CRUDApi.DTOs;
+using CRUDApi.Exceptions;
 using CRUDApi.Models;
 using CRUDApi.Services.Abstractions;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CRUDApi.Services
@@ -21,9 +23,9 @@ namespace CRUDApi.Services
 
         public async Task CreateDevelopmentTeam(DevelopmentTeamCreateDTO developmentTeam)
         {
-            //var employees = await _repository.Employee.GetEmployeesById(developmentTeam.EmployesId.ToArray());
+
             var devTeam = _mapper.Map<DevelopmentTeam>(developmentTeam);
-            devTeam.Employees= new List<Employee>();
+            devTeam.Employees = new List<Employee>();
             foreach (var id in developmentTeam.EmployesId)
             {
                 devTeam.Employees.Add(new Employee()
@@ -31,6 +33,7 @@ namespace CRUDApi.Services
                     Id = id
                 });
             }
+
             //devTeam.Employees = (ICollection<Employee>)employees;
             _repository.DevelopmentTeam.Create(devTeam);
             await _repository.Save();

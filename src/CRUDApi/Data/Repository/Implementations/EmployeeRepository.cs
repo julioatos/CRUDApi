@@ -25,7 +25,7 @@ namespace CRUDApi.Data.Repository.Implementations
 
         public override async Task<Employee> GetById(int id)
         {
-            return await _ScrumTeamContext.Set<Employee>().Include(employee => employee.Profile).SingleAsync(employee => employee.Id.Equals(id));
+            return await _ScrumTeamContext.Set<Employee>().Include(employee => employee.Profile).SingleOrDefaultAsync(employee => employee.Id.Equals(id));
         }
 
         public async Task<ICollection<Employee>> GetEmployeesById(int[] ids)

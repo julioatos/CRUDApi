@@ -7,6 +7,7 @@ using CRUDApi.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CRUDApi.Services
 {
@@ -23,9 +24,14 @@ namespace CRUDApi.Services
 
         public async Task CreateEmployeeAsync(EmployeeCreateDTO employee)
         {
+            var employees = await _repository.Employee.GetAll();
             var profile = await _repository.Profile.GetById(employee.ProfileID);
             if (profile == null)
                 throw new EntityNotFoundException();
+
+            else if(employees.FirstOrDefault(item => item.Name == employee.Name) != null)
+                throw new NameAlreadyExistException();
+
             _repository.Employee.Create(_mapper.Map<Employee>(employee));
             await _repository.Save();
         }
