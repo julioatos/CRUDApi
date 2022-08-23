@@ -1,9 +1,7 @@
-﻿using CRUDApi.Data.Repository.Abstractions;
-using CRUDApi.DTOs;
+﻿using CRUDApi.DTOs;
 using CRUDApi.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
 using CRUDApi.Exceptions;
 
 namespace CRUDApi.Controllers
@@ -46,7 +44,6 @@ namespace CRUDApi.Controllers
         }
 
         [HttpPut]
-        ///Akk julian si necesitamos id
         public async Task<IActionResult> UpdateDevelopmentTeam(DevelopmentTeamUpdateDTO developmentTeam)
         {
             await _developmentTeamService.UpdateDevelopmentTeam(developmentTeam);
@@ -61,3 +58,4 @@ namespace CRUDApi.Controllers
         }
     }
 }
+

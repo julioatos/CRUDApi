@@ -1,5 +1,4 @@
 ﻿using CRUDApi.DTOs;
-using CRUDApi.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -17,7 +17,7 @@ namespace CRUDApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProfile (ProfileCreateDTO newProfile)
+        public async Task<IActionResult> CreateProfile(ProfileCreateDTO newProfile)
         {
             if (newProfile is null)
                 return BadRequest("The object created mustn't be empty");
