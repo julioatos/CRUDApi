@@ -40,6 +40,8 @@ namespace CRUDApi.Controllers
         public async Task<IActionResult> GetDevelopmentTeamById(int id)
         {
             var team = await _developmentTeamService.GetDevelopmentTeamById(id);
+            if(team == null)
+                return NotFound();
             return Ok(team);
         }
 

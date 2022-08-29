@@ -1,18 +1,13 @@
-﻿using CRUDApi.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Linq;
-using CRUDApi.Data;
-using CRUDApi.Data.Repository.Implementations;
-using CRUDApi.Data.Repository.Abstractions;
 using CRUDApi.Services.Abstractions;
 using CRUDApi.DTOs;
 using CRUDApi.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CRUDApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -44,14 +39,15 @@ namespace CRUDApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ReturnAllEmployees()
         {
             var employees = await _employeeService.GetEmployees();
             if (employees.Count < 1)
                 return NotFound("There isn't employees reistered");
             return Ok(employees);
-
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
